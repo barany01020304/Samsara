@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".screens.details.RentHotelDetails">
+
+        <ProgressBar
+            android:id="@+id/loading_PB"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/purple"
+            android:indeterminateTintMode="src_atop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/inside_CL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+                <ImageView
+                    android:id="@+id/apart_photos_IV"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp"
+                    android:layout_marginTop="40dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+                <FrameLayout
+                    android:id="@+id/frame_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imgback_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="30dp"
+                        android:src="@drawable/arrow_back"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/arrow_right_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="120dp"
+                        android:layout_marginEnd="30dp"
+                        android:src="@drawable/right_drawable" />
+
+                    <ImageView
+                        android:id="@+id/arrow_left_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="120dp"
+                        android:src="@drawable/left_arrow_drawable" />
+                </FrameLayout>
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/apart_photos_IV">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="300dp">
+
+                        <TextView
+                            android:id="@+id/details_text_view"
+                            android:layout_width="250dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Entire Bromo mountain view Cabin in Surabaya"
+                            android:textColor="@color/semi_black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <ImageView
+                            android:id="@+id/star_in_row_image_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:src="@drawable/star_drawable"
+                            app:layout_constraintStart_toStartOf="@id/details_text_view"
+                            app:layout_constraintTop_toBottomOf="@id/details_text_view" />
+
+                        <ImageView
+                            android:id="@+id/location_in_row_image_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:paddingTop="4dp"
+                            android:src="@drawable/location2"
+                            app:layout_constraintStart_toStartOf="@id/star_in_row_image_view"
+                            app:layout_constraintTop_toBottomOf="@id/star_in_row_image_view" />
+
+                        <TextView
+                            android:id="@+id/rating_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:text="4.8"
+                            android:textColor="@color/gray"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toEndOf="@id/star_in_row_image_view"
+                            app:layout_constraintTop_toTopOf="@id/star_in_row_image_view" />
+
+                        <TextView
+                            android:id="@+id/location_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginTop="8dp"
+                            android:paddingTop="2dp"
+                            android:text="Malang, Probolinggo"
+                            android:textColor="@color/gray"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toEndOf="@id/location_in_row_image_view"
+                            app:layout_constraintTop_toBottomOf="@id/star_in_row_image_view" />
+
+                        <ImageView
+                            android:id="@+id/bed_img"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginStart="190dp"
+                            android:layout_marginTop="20dp"
+                            android:paddingTop="5dp"
+                            android:src="@drawable/bed_ic"
+                            app:layout_constraintStart_toEndOf="@id/star_in_row_image_view"
+                            app:layout_constraintTop_toBottomOf="@+id/details_text_view" />
+
+                        <TextView
+                            android:id="@+id/room_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginTop="20dp"
+                            android:text="2 room"
+                            android:textColor="@color/gray"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toEndOf="@id/bed_img"
+                            app:layout_constraintTop_toBottomOf="@id/details_text_view" />
+
+                        <ImageView
+                            android:id="@+id/home_img"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:paddingTop="5dp"
+                            android:src="@drawable/home_ic"
+                            app:layout_constraintStart_toStartOf="@id/bed_img"
+                            app:layout_constraintTop_toBottomOf="@+id/bed_img" />
+
+                        <TextView
+                            android:id="@+id/home_size"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginTop="8dp"
+                            android:text="673 m"
+                            android:textColor="@color/gray"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toEndOf="@id/home_img"
+                            app:layout_constraintTop_toBottomOf="@id/bed_img" />
+
+                        <View
+                            android:id="@+id/view"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="26dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="26dp"
+                            android:background="#898989"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/location_in_row_image_view" />
+
+                        <TextView
+                            android:id="@+id/home_facilities_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="15dp"
+                            android:text="Home facilities"
+                            android:textColor="@color/semi_black"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/view" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/home_facility_recycler_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="30dp"
+                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/home_facilities_id"
+                            app:spanCount="2" />
+
+                        <ImageView
+                            android:id="@+id/mapIV"
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_marginVertical="40dp"
+                            android:background="@drawable/search_background_drawable"
+                            app:layout_constraintStart_toEndOf="@id/home_facility_recycler_view"
+                            app:layout_constraintTop_toBottomOf="@id/home_facility_recycler_view"
+                            tools:src="@drawable/ic_launcher_background" />
+
+                        <TextView
+                            android:id="@+id/nearest_facilities_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="15dp"
+                            android:text="Nearest public facilities"
+                            android:textColor="@color/semi_black"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/mapIV" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/nearest_facility_recycler_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="30dp"
+                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/nearest_facilities_id"
+                            app:spanCount="2" />
+
+                        <TextView
+                            android:id="@+id/about_neighborhood_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:text="About location’s neighborhood"
+                            android:textColor="@color/semi_black"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/nearest_facility_recycler_view" />
+
+                        <TextView
+                            android:id="@+id/about_neighborhood_descriptio_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:text="This cabin comes with Smart Home System and beautiful viking style. You can see sunrise in the morning with City View from full Glass Window.
+
+This unit is surrounded by business district of West Surabaya that offers you the city life as well as wide range of culinary.
+
+This apartment equipped with Washing Machine, Electric Stove, Microwave, Refrigerator, Cutlery."
+                            android:textColor="@color/gray"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/about_neighborhood_id" />
+
+                        <TextView
+                            android:id="@+id/contact_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="35dp"
+                            android:text="Contact with us"
+                            android:textColor="@color/semi_black"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/about_neighborhood_descriptio_id" />
+
+                        <ImageView
+                            android:id="@+id/img_contact"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="20dp"
+                            android:src="@drawable/phone_drawablee"
+                            app:layout_constraintStart_toEndOf="@id/contact_txt"
+                            app:layout_constraintTop_toBottomOf="@id/about_neighborhood_descriptio_id" />
+
+                        <ImageView
+                            android:id="@+id/img_chat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:src="@drawable/chat_ic"
+                            app:layout_constraintStart_toEndOf="@id/img_contact"
+                            app:layout_constraintTop_toTopOf="@id/img_contact" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.core.widget.NestedScrollView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

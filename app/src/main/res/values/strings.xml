@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">Samsara</string>
+    <!--  TODO: Remove or change this placeholder text  -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="find_your_place_in">Find your place in</string>
+    <string name="your_web_client_id" translatable="false">128038612572-7vbksqdr2j91cpn72gf357u44t9dnhh6.apps.googleusercontent.com</string>
+    <string name="location_image">location image</string>
+    <string name="about_us">About us</string>
+    <string name="introduction">Are you ready to uproot and start over in a new area?<b>SAMSARA</b> will help you on your journey!</string>
+    <string name="log_in">Log in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="welcome_login">Welcome Back!</string>
+    <string name="welcome_intro">Log In to your account to explore your dream place to live across the whole world!</string>
+    <string name="username">Username</string>
+    <string name="enter_username">Enter your email or username</string>
+    <string name="password">Password</string>
+    <string name="enter_password">Enter your password</string>
+    <string name="forgot_password">Forget your password?</string>
+    <string name="or">OR</string>
+    <string name="sign_google">Sign in with Google</string>
+    <string name="signup_welcome">Let’s explore together!</string>
+    <string name="signup_intro">Create your account to explore your dream place to live across the whole world!</string>
+    <string name="phone_number">Phone number</string>
+    <string name="enter_your_number">Enter your number with country code</string>
+    <string name="signup_google">Sign up with Google</string>
+    <string name="rent_booking">Rent booking</string>
+    <string name="month">/month</string>
+    <string name="your_input_details">Your input details</string>
+    <string name="edit">Edit</string>
+    <string name="date">Date</string>
+    <string name="guests_count">Guests count</string>
+    <string name="price_details">Price details</string>
+    <string name="more_info">More info</string>
+    <string name="service_fee">Service fee 1%</string>
+    <string name="place_booking_request">Place booking request</string>
+    <string name="what_do_you_need">What do you need?</string>
+    <string name="signin">Sign in</string>
+    <string name="faq">FAQ!</string>
+    <string name="search_saved_properties">\tSearch saved properties</string>
+    <string name="new_place_new_home">New Place, New Home!</string>
+    <string name="home">Home</string>
+    <string name="saved">Saved</string>
+    <string name="profile">Profile</string>
+    <string name="hold_click_in_photo_to_change_it">Hold click photo to change it</string>
+    <string name="settings">Settings\n</string>
+    <string name="top_rated">Top rated</string>
+    <string name="email">Email</string>
+    <string name="click_hold_to_delete">click hold to delete</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="show_saved">Show Saved</string>
+    <string name="search">Search</string>
+</resources>

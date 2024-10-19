@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FFFFFF</color>
+    <color name="white">#ffffff</color>
+    <color name="white_background">#272a29</color> <!-- Dark background -->
+    <color name="gray">#7D7F88</color>
+    <color name="purple">#7359f1</color>
+    <color name="search_gray">#f2f2f3</color>
+    <color name="semi_black">#1a1e25</color>
+
+</resources>
+
+    <!--<resources>-->
+    <!--<color name="black">#FF000000</color>-->
+    <!--<color name="white">#FFFFFFFF</color>-->
+    <!--<color name="white_background">#121212</color> &lt;!&ndash; Dark background &ndash;&gt;-->
+    <!--<color name="gray">#B0B0B0</color> &lt;!&ndash; Lighter gray for better contrast &ndash;&gt;-->
+    <!--<color name="purple">#7359f1</color> &lt;!&ndash; Keeping the same purple &ndash;&gt;-->
+    <!--<color name="search_gray">#2C2C2C</color> &lt;!&ndash; Darker gray for search background &ndash;&gt;-->
+    <!--<color name="semi_black">#1a1e25</color> &lt;!&ndash; Slightly adjusted for night mode &ndash;&gt;-->
+    <!--</resources>-->

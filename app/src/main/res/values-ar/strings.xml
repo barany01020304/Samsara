@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Samsara</string>
+    <string name="find_your_place_in">ابحث عن مكانك في:</string>
+    <string name="location_image">صورة الموقع</string>
+    <string name="search_saved_properties">"بحث في العقارات المحفوظة "</string>
+    <string name="faq">الأسئلة الشائعه</string>
+    <string name="about_us">"معلومات عنا "</string>
+    <string name="new_place_new_home">مكان جديد، منزل جديد!</string>
+    <string name="introduction">هل أنت مستعد للانتقال والبدء من جديد في منطقة جديدة؟ SAMSARA سوف يساعدك في رحلتك!</string>
+    <string name="log_in">تسجيل الدخول</string>
+    <string name="sign_up">اشتراك</string>
+    <string name="welcome_login">مرحبا بعودتك !</string>
+    <string name="welcome_intro">قم بتسجيل الدخول إلى الحساب الخاص بك لاستكشاف مكان أحلامك للعيش فيه في جميع أنحاء العالم !</string>
+    <string name="username">اسم المستخدم:</string>
+    <string name="enter_username">ادخل اسم المستخدم أو الايميل:</string>
+    <string name="password">كلمة المرور:</string>
+    <string name="enter_password">ادخل كلمة المرور:</string>
+    <string name="forgot_password">نسيت كلمة المرور؟</string>
+    <string name="or">"أو "</string>
+    <string name="sign_google">تسجيل الدخول باستخدام جوجل</string>
+    <string name="signup_welcome">دعونا نستكشف معًا!</string>
+    <string name="signup_intro">قم بإنشاء الحساب الخاص بك لاستكشاف مكان أحلامك للعيش فيه في جميع أنحاء العالم!</string>
+    <string name="phone_number">رقم التليفون:</string>
+    <string name="enter_your_number">أدخل رقم التليفون مع رمز البلد</string>
+    <string name="signup_google">"تسجيل الدخول باستخدام جوجل "</string>
+    <string name="signin">تسجيل الدخول</string>
+    <string name="rent_booking">حجز الإيجار</string>
+    <string name="month">"الشهر "</string>
+    <string name="your_input_details">تفاصيل الإدخال الخاصة بك</string>
+    <string name="edit">"تعديل "</string>
+    <string name="date">اليوم</string>
+    <string name="guests_count">عدد الضيوف</string>
+    <string name="price_details">تفاصيل السعر :</string>
+    <string name="more_info">معلزمات اكثر:</string>
+    <string name="service_fee">رسوم الخدمة</string>
+    <string name="place_booking_request">مكان طلب الحجز</string>
+    <string name="what_do_you_need">ماذا تحتاج؟</string>
+    <string name="home">الرئيسية</string>
+    <string name="saved">المحفوظات</string>
+    <string name="profile">الشخصية</string>
+    <string name="hold_click_in_photo_to_change_it">اضغط مطولا على الصورة لتغييرها</string>
+    <string name="settings">الاعدادات</string>
+</resources>
