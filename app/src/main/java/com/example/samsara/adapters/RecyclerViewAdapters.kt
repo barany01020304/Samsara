@@ -42,9 +42,9 @@ class RecyclerViewAdapters(private val activity: MainActivity,private val onItem
         holder.binding.costTextView.text="${item.price} Pound"
         holder.binding.locationTextView.text=item.location
         holder.binding.detailsTextView.text=item.description
-        holder.binding.roomNum.text=item.rooms.toString()
+        holder.binding.roomNum.text="${item.rooms} rooms"
         holder.binding.ratingTextView.text=item.rating.toString()
-        holder.binding.homeArea.text =item.homeArea.toString()
+        holder.binding.homeArea.text ="${item.homeArea} m²"
         holder.binding.heartId.setOnClickListener {
             onItemClick(item)
         }

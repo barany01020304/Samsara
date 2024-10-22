@@ -18,47 +18,71 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class SeeAllViewModel(application: Application, val rentOrBuy: String, val nearOrTop: String) : AndroidViewModel(application) {
-    private val userData =UserDataSharedPref(application.applicationContext)
+class SeeAllViewModel(application: Application, val rentOrBuy: String, val nearOrTop: String) :
+    AndroidViewModel(application) {
+    private val userData = UserDataSharedPref(application.applicationContext)
     private val repository = ApartmentRepository()
-    private val db= ApartmentDatabase.getInstance(application.applicationContext).apartmentDao
+    private val db = ApartmentDatabase.getInstance(application.applicationContext).apartmentDao
+
     private val _listOfApartment = MutableLiveData<List<ApartmentDataModel>>()
     val listOfApartment: LiveData<List<ApartmentDataModel>> get() = _listOfApartment
-init {
-    setListOfApartment()
-}
-    suspend fun saveItemToRoom(apartment:ApartmentDataModel) {
+
+    init {
+        setListOfApartment()
+    }
+
+    suspend fun saveItemToRoom(apartment: ApartmentDataModel) {
         withContext(Dispatchers.IO) {
             db.insert(apartment)
         }
     }
+
     private fun setListOfApartment() {
         viewModelScope.launch {
-            val allApartments =repository.getApartments()
-        _listOfApartment.value =chooseList(allApartments)
+            val allApartments = repository.getApartments()
+          chooseList(allApartments)
             delay(500L)
         }
     }
 
-    private suspend fun chooseList(allApartments: List<ApartmentDataModel>): List<ApartmentDataModel> {
-        return withContext(Dispatchers.IO) {
-            when {
+    private suspend fun chooseList(allApartments: List<ApartmentDataModel>) {
+         withContext(Dispatchers.IO) {
+             _listOfApartment.postValue(    when {
                 rentOrBuy == "rent" && nearOrTop == "near" -> {
-                    allApartments.filter { calcDistance(userData.getLatitude(), userData.getLongitude(), it.latitude, it.longitude)<=40 && it.type == "Rent" }.sortedByDescending { it.rating }
+                      allApartments.filter {
+                        calcDistance(
+                            userData.getLatitude(),
+                            userData.getLongitude(),
+                            it.latitude,
+                            it.longitude
+                        ) <= 40 && it.type == "Rent"
+                    }.sortedBy { calcDistance(userData.getLatitude(),userData.getLongitude(),it.latitude,it.longitude) }
                 }
+
                 rentOrBuy == "rent" && nearOrTop == "top" -> {
-                    allApartments.filter { it.rating >= 4.0 && it.type == "Rent" }
+                    allApartments.filter { it.rating >= 4.0 && it.type == "Rent" }.sortedByDescending {  it.rating }
                 }
+
                 rentOrBuy == "buy" && nearOrTop == "near" -> {
-                    allApartments.filter { calcDistance(userData.getLatitude(), userData.getLongitude(), it.latitude, it.longitude) <= 40 && it.type == "buy" }
+                    allApartments.filter {
+                        calcDistance(
+                            userData.getLatitude(),
+                            userData.getLongitude(),
+                            it.latitude,
+                            it.longitude
+                        ) <= 40 && it.type == "buy"
+                    }.sortedBy { calcDistance(userData.getLatitude(),userData.getLongitude(),it.latitude,it.longitude) }
                 }
+
                 rentOrBuy == "buy" && nearOrTop == "top" -> {
-                    allApartments.filter { it.rating >= 4.0 && it.type == "buy" }.sortedByDescending { it.rating }
+                    allApartments.filter { it.rating >= 4.0 && it.type == "buy" }
+                        .sortedByDescending { it.rating }
                 }
+
                 else -> {
                     emptyList()
                 }
-            }
+            })
         }
     }
 //    private fun chooseList(allApartments: List<ApartmentDataModel>): List<ApartmentDataModel> {

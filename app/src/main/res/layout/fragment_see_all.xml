@@ -38,6 +38,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/saved_row" />
+        <View
+            app:layout_constraintTop_toBottomOf="@id/see_all_recycle_view"
+
+            android:layout_width="match_parent"
+            android:layout_height="80dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

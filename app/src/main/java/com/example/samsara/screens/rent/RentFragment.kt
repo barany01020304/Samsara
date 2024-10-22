@@ -23,7 +23,8 @@ import kotlinx.coroutines.launch
 class RentFragment : Fragment() {
     private lateinit var binding: FragmentRentBinding
     private lateinit var viewModel:RentViewModel
-    private lateinit var adapter:RecyclerViewAdapters
+    private lateinit var nearAdapter:RecyclerViewAdapters
+    private lateinit var topAdapter:RecyclerViewAdapters
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,15 +49,27 @@ class RentFragment : Fragment() {
             binding.rentNearPB.visibility =View.GONE
             binding.nearRecyclerView.visibility=View.VISIBLE
         }
-        adapter = RecyclerViewAdapters(activity){
+        setAdapters(activity)
+        setSeeAll()
+    }
+
+    private fun setAdapters(activity: MainActivity) {
+        topAdapter = RecyclerViewAdapters(activity) {
             CoroutineScope(Dispatchers.IO).launch {
                 viewModel.saveItemToRoom(it)
             }
-            Toast.makeText(requireContext(),"this Item saved",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Saved", Toast.LENGTH_SHORT).show()
 
         }
-        setSeeAll()
+        nearAdapter = RecyclerViewAdapters(activity) {
+            CoroutineScope(Dispatchers.IO).launch {
+                viewModel.saveItemToRoom(it)
+            }
+            Toast.makeText(requireContext(), "Saved", Toast.LENGTH_SHORT).show()
+
+        }
     }
+
     private fun setSeeAll(){
         val activity =activity as MainActivity
 
@@ -70,11 +83,11 @@ class RentFragment : Fragment() {
     }
 
     private fun setUpTopRecycle(list: List<ApartmentDataModel>) {
-        binding.topRatedRecyclerView.adapter=adapter
-        adapter.data=list
+        binding.topRatedRecyclerView.adapter=topAdapter
+        topAdapter.data=list
     }
     private fun setUpNearRecycle(list: List<ApartmentDataModel>) {
-        binding.nearRecyclerView.adapter=adapter
-        adapter.data=list
+        binding.nearRecyclerView.adapter=nearAdapter
+        nearAdapter.data=list
     }
 }

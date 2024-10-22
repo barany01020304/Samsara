@@ -8,12 +8,13 @@ import com.example.samsara.datamodel.ApartmentDataModel
 
 @Dao
 interface ApartmentDao {
-    @Query("select * from ApartmentDataModel")
+    //@Query("select * from ApartmentDataModel")
+    @Query("SELECT * FROM ApartmentDataModel ORDER BY id DESC")
     suspend fun getAllApartments(): List<ApartmentDataModel>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(apartment: ApartmentDataModel)
-    @Query("DELETE FROM ApartmentDataModel WHERE id = :id")
-    fun deleteByBuildingName(id: String)
+    @Query("DELETE FROM ApartmentDataModel WHERE ApartmentDataModel.photos = :list")
+    fun deleteByBuildingName(list:List<String>)
 
 }

@@ -5,11 +5,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.example.samsara.MainActivity
 import com.example.samsara.R
 import com.example.samsara.databinding.SavedRowBinding
 import com.example.samsara.datamodel.ApartmentDataModel
+import com.example.samsara.screens.main.MainFragmentDirections
 
-class SavedRecycleAdapter : RecyclerView.Adapter<SavedRecycleAdapter.SavedRecycleVH>() {
+class SavedRecycleAdapter(private val activity: MainActivity, private val onHoldClick:(List<String>) ->Unit) : RecyclerView.Adapter<SavedRecycleAdapter.SavedRecycleVH>() {
     inner class SavedRecycleVH(val binding: SavedRowBinding) : RecyclerView.ViewHolder(binding.root)
     var data: List<ApartmentDataModel> = emptyList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedRecycleVH {
@@ -35,9 +37,20 @@ class SavedRecycleAdapter : RecyclerView.Adapter<SavedRecycleAdapter.SavedRecycl
         holder.binding.detailsTextView.text=item.description
        // holder.binding.roomNum.text=item.rooms.toString()
         holder.binding.ratingTextView.text=item.rating.toString()
+        holder.binding.roomNum.text="${item.rooms} rooms"
+        holder.binding.homeArea.text ="${item.homeArea} m²"
       //  holder.binding.homeArea.text =item.homeArea.toString()
         holder.binding.root.setOnLongClickListener {
-
+        onHoldClick(item.photos)
+            true
+        }
+        holder.binding.root.setOnClickListener {
+            if(item.type =="Rent"){
+                activity.navController.navigate(MainFragmentDirections.actionMainFragmentToRentDetailsFragment(item.id))
+            }
+            else{
+                activity.navController.navigate(MainFragmentDirections.actionMainFragmentToBuyDetialsFragment(item.id))
+            }
             true
         }
 

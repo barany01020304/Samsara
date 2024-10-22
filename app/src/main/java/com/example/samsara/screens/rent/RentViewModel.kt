@@ -50,14 +50,16 @@ class RentViewModel( application: Application) : AndroidViewModel(application) {
 
     private suspend fun setTopRatedRent(allApartments: List<ApartmentDataModel>) {
         withContext(Dispatchers.IO) {
+            val list=allApartments.filter { it.rating >= 4.5 && it.type == "Rent" }.sortedByDescending {  it.rating }
 
-            _apartmentsTop.postValue(allApartments.filter { it.rating >= 4.5 && it.type == "Rent" }.sortedByDescending {  it.rating }.take(5))
+            _apartmentsTop.postValue(list)
         }
     }
 
     private suspend fun setNearLocation(allApartments: List<ApartmentDataModel>) {
         withContext(Dispatchers.IO) {
-            _apartmentsNear.postValue(allApartments.filter { calcDistance(userData.getLatitude(),userData.getLongitude(),it.latitude,it.longitude)<=40 && it.type == "Rent" }.take(5))
+            val list=allApartments.filter { calcDistance(userData.getLatitude(),userData.getLongitude(),it.latitude,it.longitude)<=40 && it.type == "Rent" }.sortedByDescending {  calcDistance(userData.getLatitude(),userData.getLongitude(),it.latitude,it.longitude) }
+            _apartmentsNear.postValue(list)
         }
     }
 

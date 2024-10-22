@@ -5,14 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.samsara.MainActivity
 import com.example.samsara.R
 import com.example.samsara.adapters.SavedRecycleAdapter
 import com.example.samsara.databinding.FragmentSavedBinding
 import com.example.samsara.datamodel.ApartmentDataModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,9 +35,7 @@ class SavedFragment : Fragment() {
     private var param2: String? = null
     private lateinit var binding: FragmentSavedBinding
     private lateinit var viewModel: SavedViewModel
-    private val adapter by lazy {
-        SavedRecycleAdapter()
-    }
+   lateinit var adapter:SavedRecycleAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,13 +56,29 @@ class SavedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val activity =activity as MainActivity
+
         val viewModelFactory=SavedViewModelFactory(requireActivity().application)
         viewModel=ViewModelProvider(this,viewModelFactory)[SavedViewModel::class.java]
+        adapter=SavedRecycleAdapter(activity){
+            CoroutineScope(Dispatchers.IO).launch{
+                viewModel.deleteItem(it)
+                adapter.data=viewModel.ApartmentList.value!!
+            }
+            Toast.makeText(requireContext(),"deleted",Toast.LENGTH_SHORT).show()
+        }
         viewModel.ApartmentList.observe(viewLifecycleOwner){
             setUpRecycle(it)
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        CoroutineScope(Dispatchers.IO).launch {
+            viewModel.setRoom()
+        }
+
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of

@@ -49,13 +49,13 @@ class BuyViewModel( application: Application) : AndroidViewModel(application) {
     private suspend fun setTopRatedRent(allApartments: List<ApartmentDataModel>) {
         withContext(Dispatchers.IO) {
 
-            _apartmentsTop.postValue(allApartments.filter { it.rating >= 4.5 && it.type == "buy" }.sortedByDescending {  it.rating }.take(5))
+            _apartmentsTop.postValue(allApartments.filter { it.rating >= 4.5 && it.type == "buy" }.sortedByDescending {  it.rating })
         }
     }
 
     private suspend fun setNearLocation(allApartments: List<ApartmentDataModel>) {
         withContext(Dispatchers.IO) {
-            _apartmentsNear.postValue(allApartments.filter { calcDistance(userData.getLatitude(),userData.getLongitude(),it.latitude,it.longitude)<=40 && it.type == "buy" }.take(5))
+            _apartmentsNear.postValue(allApartments.filter { calcDistance(userData.getLatitude(),userData.getLongitude(),it.latitude,it.longitude)<=40 && it.type == "buy" })
         }
     }
 

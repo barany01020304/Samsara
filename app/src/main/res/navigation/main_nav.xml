@@ -116,6 +116,9 @@
             app:destination="@id/seeAllFragment"
             app:enterAnim="@anim/bottom_to_top"
             />
+        <action
+            android:id="@+id/action_mainFragment_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
     </fragment>
     <fragment
 
@@ -151,4 +154,9 @@
         android:id="@+id/savedFragment"
         android:name="com.example.samsara.screens.saved.SavedFragment"
         android:label="SavedFragment" />
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.example.samsara.screens.nomatter.AboutUsFragment"
+        android:label="fragment_about_us"
+        tools:layout="@layout/fragment_about_us" />
 </navigation>

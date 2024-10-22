@@ -16,6 +16,7 @@ import com.example.samsara.databinding.FragmentBuyBinding
 import com.example.samsara.datamodel.ApartmentDataModel
 import com.example.samsara.datasource.local.UserDataSharedPref
 import com.example.samsara.screens.home.HomeViewModel
+import com.example.samsara.screens.main.MainFragmentDirections
 import com.example.samsara.screens.rent.RentVIewModelFactory
 import com.example.samsara.screens.rent.RentViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -25,7 +26,8 @@ import kotlinx.coroutines.launch
 class BuyFragment : Fragment() {
     private lateinit var binding: FragmentBuyBinding
     private lateinit var viewModel: BuyViewModel
-    lateinit var adapter:RecyclerViewAdapters
+    private lateinit var nearAdapter:RecyclerViewAdapters
+    private lateinit var topAdapter:RecyclerViewAdapters
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,12 +41,8 @@ class BuyFragment : Fragment() {
         val viewModelFactory= BuyVIewModelFactory(requireActivity().application)
         viewModel = ViewModelProvider(this,viewModelFactory)[BuyViewModel::class.java]
         val activity =activity as MainActivity
-        adapter=RecyclerViewAdapters(activity){
-            CoroutineScope(Dispatchers.IO).launch {
-                viewModel.saveItemToRoom(it)
-            }
-            Toast.makeText(requireContext(),"this Item saved", Toast.LENGTH_SHORT).show()
-        }
+        setAdapters(activity)
+        setSeeAll(activity)
         viewModel.apartmentsTop.observe(viewLifecycleOwner){
             setUpTopRecycle(it)
             binding.buyTopPB.visibility =View.GONE
@@ -56,15 +54,40 @@ class BuyFragment : Fragment() {
             binding.buyNearRecyclerView.visibility=View.VISIBLE
         }
     }
+    private fun setSeeAll(activity: MainActivity){
+
+        binding.nearSeeAllTv.setOnClickListener {
+            activity.navController.navigate(MainFragmentDirections.actionMainFragmentToSeeAllFragment("buy","near"))
+        }
+        binding.topRatedSeeAll.setOnClickListener {
+            activity.navController.navigate(MainFragmentDirections.actionMainFragmentToSeeAllFragment("buy","top"))
+        }
+
+    }
+    private fun setAdapters(activity: MainActivity) {
+        nearAdapter = RecyclerViewAdapters(activity) {
+            CoroutineScope(Dispatchers.IO).launch {
+                viewModel.saveItemToRoom(it)
+            }
+            Toast.makeText(requireContext(), "Saved", Toast.LENGTH_SHORT).show()
+        }
+        topAdapter = RecyclerViewAdapters(activity) {
+            CoroutineScope(Dispatchers.IO).launch {
+                viewModel.saveItemToRoom(it)
+            }
+            Toast.makeText(requireContext(), "Saved", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     private fun setUpTopRecycle(list: List<ApartmentDataModel>) {
-        adapter.data=list
-        binding.buyTopRatedRecyclerView.adapter=adapter
+        binding.buyTopRatedRecyclerView.adapter=topAdapter
+        topAdapter.data=list
+
 
     }
     private fun setUpNearRecycle(list: List<ApartmentDataModel>) {
-        adapter.data=list
-        binding.buyNearRecyclerView.adapter=adapter
+        binding.buyNearRecyclerView.adapter=nearAdapter
+        nearAdapter.data=list
 
     }
 }

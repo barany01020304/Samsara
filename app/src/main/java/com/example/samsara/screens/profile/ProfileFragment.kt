@@ -19,10 +19,13 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import coil.load
 import com.bumptech.glide.Glide
+import com.example.samsara.MainActivity
 import com.example.samsara.R
 import com.example.samsara.databinding.FragmentProfileBinding
+import com.example.samsara.screens.main.MainFragmentDirections
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,6 +65,10 @@ class ProfileFragment : Fragment() {
                     //   binding.profileIV.load(imageUri)  // Load the image into an ImageView
                 }
             }
+        }
+        val activity=activity as MainActivity
+        binding.aboutUsView.setOnClickListener {
+            activity.navController.navigate(MainFragmentDirections.actionMainFragmentToAboutUsFragment())
         }
         viewModel.profileImage.observe(viewLifecycleOwner){
             Glide.with(this)

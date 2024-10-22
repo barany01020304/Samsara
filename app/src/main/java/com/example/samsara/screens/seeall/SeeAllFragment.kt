@@ -34,10 +34,14 @@ class SeeAllFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var binding:FragmentSeeAllBinding
+    private lateinit var binding: FragmentSeeAllBinding
     private lateinit var viewModel: SeeAllViewModel
-   lateinit var  adapter:RecyclerViewAdapters
 
+    //   lateinit var  rentNearAdapter:RecyclerViewAdapters
+//    lateinit var  rentTopAdapter:RecyclerViewAdapters
+//    lateinit var  buyNearAdapter:RecyclerViewAdapters
+//    lateinit var  buyTopadapter:RecyclerViewAdapters
+    lateinit var adapter: RecyclerViewAdapters
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -51,34 +55,67 @@ class SeeAllFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding =DataBindingUtil.inflate(layoutInflater,R.layout.fragment_see_all,container,false)
+        binding =
+            DataBindingUtil.inflate(layoutInflater, R.layout.fragment_see_all, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val args: SeeAllFragmentArgs by navArgs()
-        val application=requireActivity().application
-        val viewModelFactory=SeeAllViewModelFactory(application,
-           args.rentOrBuy,args.topOrNear)
-        viewModel=ViewModelProvider(this,viewModelFactory)[SeeAllViewModel::class.java]
-        val activity =activity as MainActivity
-        adapter=RecyclerViewAdapters(activity){
-            CoroutineScope(Dispatchers.IO).launch {
-                viewModel.saveItemToRoom(it)
-            }
-            Toast.makeText(requireContext(),"this Item saved", Toast.LENGTH_SHORT).show()
-        }
-        viewModel.listOfApartment.observe(viewLifecycleOwner){
+        val application = requireActivity().application
+        val viewModelFactory = SeeAllViewModelFactory(
+            application,
+            args.rentOrBuy, args.topOrNear
+        )
+        viewModel = ViewModelProvider(this, viewModelFactory)[SeeAllViewModel::class.java]
+        val activity = activity as MainActivity
+        setAdapters(activity)
+        viewModel.listOfApartment.observe(viewLifecycleOwner) {
             setUpRecycle(it)
         }
     }
-    private  fun setUpRecycle(list: List<ApartmentDataModel>) {
-        binding.seeAllRecycleView.adapter=adapter
-        adapter.data=list
-       // delay(500L)
-        binding.seeAllPB.visibility =View.GONE
-        binding.seeAllRecycleView.visibility=View.VISIBLE
+
+    private fun setAdapters(activity: MainActivity) {
+        adapter = RecyclerViewAdapters(activity) {
+            CoroutineScope(Dispatchers.IO).launch {
+                viewModel.saveItemToRoom(it)
+            }
+            Toast.makeText(requireContext(), "this Item saved", Toast.LENGTH_SHORT).show()
+        }
+//        rentNearAdapter = RecyclerViewAdapters(activity) {
+//            CoroutineScope(Dispatchers.IO).launch {
+//                viewModel.saveItemToRoom(it)
+//            }
+//            Toast.makeText(requireContext(), "this Item saved", Toast.LENGTH_SHORT).show()
+//        }
+//        rentTopAdapter = RecyclerViewAdapters(activity) {
+//            CoroutineScope(Dispatchers.IO).launch {
+//                viewModel.saveItemToRoom(it)
+//            }
+//            Toast.makeText(requireContext(), "this Item saved", Toast.LENGTH_SHORT).show()
+//        }
+//        buyNearAdapter = RecyclerViewAdapters(activity) {
+//            CoroutineScope(Dispatchers.IO).launch {
+//                viewModel.saveItemToRoom(it)
+//            }
+//            Toast.makeText(requireContext(), "this Item saved", Toast.LENGTH_SHORT).show()
+//        }
+//        buyTopadapter = RecyclerViewAdapters(activity) {
+//            CoroutineScope(Dispatchers.IO).launch {
+//                viewModel.saveItemToRoom(it)
+//            }
+//            Toast.makeText(requireContext(), "this Item saved", Toast.LENGTH_SHORT).show()
+//        }
+
+    }
+
+    private fun setUpRecycle(list: List<ApartmentDataModel>) {
+        binding.seeAllRecycleView.adapter = adapter
+        adapter.data = list
+        // delay(500L)
+        binding.seeAllPB.visibility = View.GONE
+        binding.seeAllRecycleView.visibility = View.VISIBLE
 
     }
 
