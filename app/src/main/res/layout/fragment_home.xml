@@ -12,6 +12,16 @@
         android:layout_height="match_parent"
         tools:context=".screens.home.HomeFragment">
 
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+
         <TextView
             android:id="@+id/find_place_tv"
             android:layout_width="wrap_content"
@@ -25,10 +35,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:paddingVertical="2dp"
             android:id="@+id/card_view_location_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingVertical="2dp"
             app:layout_constraintStart_toStartOf="@+id/find_place_tv"
             app:layout_constraintTop_toBottomOf="@id/find_place_tv">
 
@@ -49,11 +59,9 @@
                 android:textSize="20sp" />
 
         </LinearLayout>
-<!--        android:drawableEnd="@drawable/filter_drawable"-->
+        <!--        android:drawableEnd="@drawable/filter_drawable"-->
 
         <EditText
-            android:focusable="false"
-            android:inputType="none"
             android:id="@+id/search_view_id"
             android:layout_width="0dp"
             android:layout_height="48dp"
@@ -62,12 +70,14 @@
             android:background="@drawable/edittext_background"
             android:drawableStart="@drawable/search_drawable"
             android:drawablePadding="20dp"
+            android:focusable="false"
             android:hint="search address,city"
+            android:inputType="none"
             android:paddingHorizontal="20dp"
             android:textColorHint="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_view_location_tv"/>
+            app:layout_constraintTop_toBottomOf="@+id/card_view_location_tv" />
 
         <TextView
             android:id="@+id/what_need_tv"
@@ -109,4 +119,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rent_or_buy_tl" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </layout>

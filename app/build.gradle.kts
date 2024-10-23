@@ -102,4 +102,7 @@ dependencies {
     //location service
     implementation ("com.google.android.gms:play-services-location:21.0.1")
 
+    //swipe to refresh
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
+
 }

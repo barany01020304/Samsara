@@ -1,176 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".screens.nomatter.AboutUsFragment">
 
     <TextView
         android:id="@+id/aboutUsHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/about_us"
+        android:layout_marginTop="30dp"
         android:inputType=""
-        android:textSize="24sp"
+        android:text="@string/about_us"
         android:textColor="#333333"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="30dp"/>
-
-    <!-- Developer 1 Ahmed Mohamed Mahmoud -->
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <ImageView
         android:id="@+id/devImage1"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/person_drawable"
-        android:layout_marginTop="24dp"
         android:layout_marginStart="16dp"
-        android:contentDescription="Ahmed Mohamed Mahmoud"
-        app:layout_constraintTop_toBottomOf="@id/aboutUsHeader"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginTop="24dp"
+        android:contentDescription="Ahmed Mohamed Mohamed"
+        android:src="@drawable/person_drawable"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/aboutUsHeader" />
 
     <TextView
         android:id="@+id/devName1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Ahmed Mohamed Mahmoud"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        app:layout_constraintTop_toTopOf="@id/devImage1"
-        app:layout_constraintStart_toEndOf="@id/devImage1"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginEnd="16dp"
+        android:text="Ahmed Mohamed Mohamed (Team Leader)"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/devImage1"
+        app:layout_constraintTop_toTopOf="@id/devImage1" />
 
     <TextView
         android:id="@+id/devTitle1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Android Developer"
-        android:textSize="14sp"
-        android:textColor="#777777"
-        app:layout_constraintTop_toBottomOf="@id/devName1"
-        app:layout_constraintStart_toEndOf="@id/devImage1"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginEnd="16dp"
+        android:text="Android Developer"
+        android:textColor="#777777"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/devImage1"
+        app:layout_constraintTop_toBottomOf="@id/devName1" />
 
-    <!-- Developer 2 Ahmed Mohamed Mohamed -->
+    <!-- Developer 2 Ahmed Mohamed Mahmoud (now second) -->
     <ImageView
         android:id="@+id/devImage2"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/person_drawable"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
-        android:contentDescription="Ahmed Mohamed Mohamed"
-        app:layout_constraintTop_toBottomOf="@id/devImage1"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginTop="16dp"
+        android:contentDescription="Ahmed Mohamed Mahmoud"
+        android:src="@drawable/person_drawable"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/devImage1" />
 
     <TextView
         android:id="@+id/devName2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Ahmed Mohamed Mohamed"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        app:layout_constraintTop_toTopOf="@id/devImage2"
-        app:layout_constraintStart_toEndOf="@id/devImage2"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginEnd="16dp"
+        android:text="Ahmed Mohamed Mahmoud"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/devImage2"
+        app:layout_constraintTop_toTopOf="@id/devImage2" />
 
     <TextView
         android:id="@+id/devTitle2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Android Developer"
-        android:textSize="14sp"
-        android:textColor="#777777"
-        app:layout_constraintTop_toBottomOf="@id/devName2"
-        app:layout_constraintStart_toEndOf="@id/devImage2"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginEnd="16dp"
+        android:text="Android Developer"
+        android:textColor="#777777"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/devImage2"
+        app:layout_constraintTop_toBottomOf="@id/devName2" />
 
     <!-- Developer 3 Sara Soliman Hamed -->
     <ImageView
         android:id="@+id/devImage3"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/person_drawable"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="Sara Soliman Hamed"
-        app:layout_constraintTop_toBottomOf="@id/devImage2"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:src="@drawable/person_drawable"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/devImage2" />
 
     <TextView
         android:id="@+id/devName3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Sara Soliman Hamed"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        app:layout_constraintTop_toTopOf="@id/devImage3"
-        app:layout_constraintStart_toEndOf="@id/devImage3"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginEnd="16dp"
+        android:text="Sara Soliman Hamed"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/devImage3"
+        app:layout_constraintTop_toTopOf="@id/devImage3" />
 
     <TextView
         android:id="@+id/devTitle3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Android Developer"
-        android:textSize="14sp"
-        android:textColor="#777777"
-        app:layout_constraintTop_toBottomOf="@id/devName3"
-        app:layout_constraintStart_toEndOf="@id/devImage3"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginEnd="16dp"
+        android:text="Android Developer"
+        android:textColor="#777777"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/devImage3"
+        app:layout_constraintTop_toBottomOf="@id/devName3" />
 
     <!-- Developer 4 Hind Mahmoud Kandil -->
     <ImageView
         android:id="@+id/devImage4"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/person_drawable"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="Hind Mahmoud Kandil"
-        app:layout_constraintTop_toBottomOf="@id/devImage3"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:src="@drawable/person_drawable"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/devImage3" />
 
     <TextView
         android:id="@+id/devName4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Hind Mahmoud Kandil"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        app:layout_constraintTop_toTopOf="@id/devImage4"
-        app:layout_constraintStart_toEndOf="@id/devImage4"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginEnd="16dp"
+        android:text="Hind Mahmoud Kandil"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/devImage4"
+        app:layout_constraintTop_toTopOf="@id/devImage4" />
 
     <TextView
         android:id="@+id/devTitle4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Android Developer"
-        android:textSize="14sp"
-        android:textColor="#777777"
-        app:layout_constraintTop_toBottomOf="@id/devName4"
-        app:layout_constraintStart_toEndOf="@id/devImage4"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
-
+        android:layout_marginEnd="16dp"
+        android:text="Android Developer"
+        android:textColor="#777777"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/devImage4"
+        app:layout_constraintTop_toBottomOf="@id/devName4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

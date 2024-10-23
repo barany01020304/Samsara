@@ -1,4 +1,5 @@
 package com.example.samsara.screens.home
+
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -11,25 +12,26 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Build
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.samsara.datasource.local.UserDataSharedPref
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.IOException
+import java.util.Locale
 
-class HomeViewModel(private var application: Application, var userData: UserDataSharedPref, var fusedLocationClient: FusedLocationProviderClient, var geocoder:Geocoder) : AndroidViewModel(application) {
+class HomeViewModel(private var application: Application) : AndroidViewModel(application) {
+    private val userData = UserDataSharedPref(application.applicationContext)
+    private val fusedLocationClient: FusedLocationProviderClient =
+        LocationServices.getFusedLocationProviderClient(application.applicationContext)
+    private val geocoder = Geocoder(application.applicationContext, Locale.getDefault())
 
-    // LiveData for location and city data
-    private val _locationLiveData = MutableLiveData<Location>()
-    val locationLiveData: LiveData<Location> get() = _locationLiveData
     private val _cityNameLiveData = MutableLiveData<String>()
     val cityNameLiveData: LiveData<String> get() = _cityNameLiveData
 
@@ -38,23 +40,20 @@ class HomeViewModel(private var application: Application, var userData: UserData
     val showDialogLiveData: LiveData<Pair<Boolean, Boolean>> get() = _showDialogLiveData
 
     init {
-//            if (_cityNameLiveData.value==null ){
-//                _cityNameLiveData.value=userData.getLocation()
-//            }
+        _cityNameLiveData.value = userData.getLocation()
     }
 
     // Method to check permissions and location settings
     fun checkLocationSettingsAndRequestLocation() {
-        val context = application
-
+        val context = application.applicationContext
         val isGpsEnabled = isGpsEnabled(context)
         val isPermissionGranted = isLocationPermissionGranted(context)
-
         if (!isGpsEnabled || !isPermissionGranted) {
             // Trigger alert dialog if either GPS or location permission is not enabled
             _showDialogLiveData.value = Pair(isGpsEnabled, isPermissionGranted)
         } else {
             // Permission granted and GPS enabled, fetch location
+
             getLastKnownLocation()
         }
     }
@@ -86,7 +85,6 @@ class HomeViewModel(private var application: Application, var userData: UserData
     private fun getLastKnownLocation() {
         fusedLocationClient.lastLocation.addOnSuccessListener { location ->
             location?.let {
-                _locationLiveData.value = it
                 userData.setCoordinates(it.latitude, it.longitude)
                 getCityName(userData.getLatitude(), userData.getLongitude())
             }
@@ -103,7 +101,7 @@ class HomeViewModel(private var application: Application, var userData: UserData
             geocoder.getFromLocation(latitude, longitude, 1, object : Geocoder.GeocodeListener {
                 override fun onGeocode(addresses: List<Address>) {
                     if (addresses.isNotEmpty()) {
-                        val city = addresses[0].locality +" "+addresses[0].countryName
+                        val city = addresses[0].locality + " " + addresses[0].countryName
                         userData.setLocation(city)
                         _cityNameLiveData.postValue(city)// Return the city name via callback
                     }
@@ -115,14 +113,16 @@ class HomeViewModel(private var application: Application, var userData: UserData
             })
         } else {
             viewModelScope.launch(Dispatchers.IO) {
-                try {  val addresses = geocoder.getFromLocation(latitude, longitude, 1)
-                if (addresses!!.isNotEmpty()) {
-                    val city = addresses[0]
-                   // addresses[0].locality +" "+ addresses[0].subAdminArea+" "+addresses[0].countryName
-                    userData.setLocation(city.locality +","+city.countryName)
-                    _cityNameLiveData.postValue(userData.getLocation())
+                try {
+                    val addresses = geocoder.getFromLocation(latitude, longitude, 1)
+                    if (addresses!!.isNotEmpty()) {
+                        val city = addresses[0]
+                        // addresses[0].locality +" "+ addresses[0].subAdminArea+" "+addresses[0].countryName
+                        userData.setLocation(city.locality + "," + city.countryName)
+                        _cityNameLiveData.postValue(userData.getLocation())
 
-                }} catch (e: IOException) {
+                    }
+                } catch (e: IOException) {
                     Log.e(TAG, "Geocoder IOException internet IO : ${e.message}")
                 } catch (e: IllegalArgumentException) {
                     Log.e(TAG, "Geocoder IllegalArgumentException wrong lat lon: ${e.message}")
@@ -131,8 +131,9 @@ class HomeViewModel(private var application: Application, var userData: UserData
             }
         }
     }
-    companion object{
+
+    companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 10
-        private const val TAG="TAGTAG in home viewModel"
+        private const val TAG = "TAG in home viewModel"
     }
 }

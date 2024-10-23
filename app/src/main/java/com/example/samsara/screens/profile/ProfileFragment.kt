@@ -70,6 +70,9 @@ class ProfileFragment : Fragment() {
         binding.aboutUsView.setOnClickListener {
             activity.navController.navigate(MainFragmentDirections.actionMainFragmentToAboutUsFragment())
         }
+        binding.fAQView.setOnClickListener {
+            activity.navController.navigate(MainFragmentDirections.actionMainFragmentToFAQFragment())
+        }
         viewModel.profileImage.observe(viewLifecycleOwner){
             Glide.with(this)
                 .load(it)

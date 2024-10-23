@@ -65,31 +65,27 @@ class HomeFragment : Fragment() {
                 binding.cityNameTv.text = cityName
               //  Toast.makeText(requireContext(), "City: $cityName", Toast.LENGTH_LONG).show()
         }
-        homeViewModel.locationLiveData.observe(viewLifecycleOwner){
-           // Toast.makeText(requireContext(), "loc: $it", Toast.LENGTH_LONG).show()
-        }
+
         // Observe the dialog trigger LiveData
         homeViewModel.showDialogLiveData.observe(viewLifecycleOwner) { (isGpsEnabled, isPermissionGranted) ->
-            showLocationAlertDialog(isGpsEnabled, isPermissionGranted)
-            if (!isGpsEnabled && !isPermissionGranted){
-            }
-
+                showLocationAlertDialog(isGpsEnabled, isPermissionGranted)
+        }
+        binding.refreshLayout.setOnRefreshListener {
+            restartActivity()
+            binding.refreshLayout.isRefreshing = false
         }
     }
 
     private fun setViewModel() {
-        val userData = UserDataSharedPref(requireContext())
-        val fusedLocationClient: FusedLocationProviderClient =
-            LocationServices.getFusedLocationProviderClient(requireContext())
-        val geocoder = Geocoder(requireContext(), Locale.getDefault())
         val application =requireActivity().application
-        val viewModelFactory = HomeViewModelFactory(application,userData, fusedLocationClient, geocoder)
+        val viewModelFactory = HomeViewModelFactory(application)
         homeViewModel = ViewModelProvider(this, viewModelFactory)[HomeViewModel::class.java]
     }
 
     override fun onResume() {
         super.onResume()
         homeViewModel.checkLocationSettingsAndRequestLocation()
+
     }
     private fun showLocationAlertDialog(isGpsEnabled: Boolean, isPermissionGranted: Boolean) {
         val message = "Please enable GPS and grant location permissions to use <b>SAMSARA</b>."
@@ -112,18 +108,19 @@ class HomeFragment : Fragment() {
                 dialog.dismiss()
             }
         }
-
         alertDialogBuilder.setNegativeButton("Exit App") { dialog, _ ->
             requireActivity().finish()
             dialog.dismiss()
         }
-
         alertDialogBuilder.create().show()
-
     }
 
-
-
+    private fun restartActivity() {
+        val intent = Intent(requireActivity(), MainActivity::class.java) // Replace MainActivity with your activity's name
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK) // Clear the activity stack
+        startActivity(intent) // Start the activity
+        requireActivity().finish() // Optionally finish the current activity
+    }
 
     private fun setupRentBuyViewpager() {
         val adapter = RentBuyViewPagerAdapter(this)
@@ -140,6 +137,7 @@ class HomeFragment : Fragment() {
     }
     private fun setLocationIV() {
         binding.locationPinIV.setOnClickListener {
+            restartActivity()
             Glide.with(this.requireContext())
                 .asGif()
                 .load(R.drawable.location_gif_drawable)

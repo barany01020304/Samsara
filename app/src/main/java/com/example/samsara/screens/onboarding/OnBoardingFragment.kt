@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.findNavController
@@ -30,22 +31,26 @@ class  OnBoardingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.signinBtn.setOnClickListener {
-            findNavController().navigate(OnBoardingFragmentDirections.actionOnBoardingFragmentToLoginFragment())
+            if (isNetworkAvailable(requireContext())){
+                findNavController().navigate(OnBoardingFragmentDirections.actionOnBoardingFragmentToLoginFragment())
+
+            }else{
+                Toast.makeText(requireContext(),"You don't have Internet Connection",Toast.LENGTH_SHORT).show()
+            }
         }
         binding.signupButton.setOnClickListener {
+            if (isNetworkAvailable(requireContext())){
             findNavController().navigate(OnBoardingFragmentDirections.actionOnBoardingFragmentToSignUpFragment())
+            }else{
+                Toast.makeText(requireContext(),"You don't have Internet Connection",Toast.LENGTH_SHORT).show()
+            }
         }}
-//        if (!isNetworkAvailable(requireContext())){
-//            findNavController().navigate(OnBoardingFragmentDirections.actionOnBoardingFragmentToNoInternetFragment())
-//
-//        }
-//    }
-//    fun isNetworkAvailable(context: Context): Boolean {
-//        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-//        val network = connectivityManager.activeNetwork ?: return false
-//        val networkCapabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
-//        return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-//    }
+    fun isNetworkAvailable(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return false
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+        return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
 
 
 

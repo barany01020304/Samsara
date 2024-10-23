@@ -23,6 +23,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.samsara.databinding.ActivityMainBinding
 import com.example.samsara.screens.main.MainFragmentDirections
 import com.example.samsara.screens.onboarding.OnBoardingFragmentDirections
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding:ActivityMainBinding
@@ -47,8 +49,11 @@ class MainActivity : AppCompatActivity() {
         connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         setupNetworkCallback()
 
-        if (currentDestination == R.id.onBoardingFragment  && !isNetworkAvailable(this)) {
+        if (currentDestination == R.id.onBoardingFragment  && !isNetworkAvailable(this) &&Firebase.auth.currentUser!=null) {
             navController.navigate(OnBoardingFragmentDirections.actionOnBoardingFragmentToNoInternetFragment())
+        }else if (currentDestination == R.id.onBoardingFragment&&Firebase.auth.currentUser!=null){
+            navController.navigate(OnBoardingFragmentDirections.actionOnBoardingFragmentToMainFragment())
+
         }
 
     }
