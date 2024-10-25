@@ -12,6 +12,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.samsara.R
 import com.example.samsara.databinding.FragmentLoginBinding
 import com.example.samsara.screens.signup.SignUpFragmentDirections
+import com.example.samsara.utils.firebaseAuthWithGoogle
+import com.example.samsara.utils.googleSignInClient
+
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -67,26 +70,19 @@ class LoginFragment : Fragment() {
             }
         }
         // Configure Google Sign In
-        googleSignInClient = googleSignInClient()
-        binding.loginBtn.setOnClickListener {
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToMainFragment())
-           // signInGoogle()
-        }
+        googleSignInClient =googleSignInClient()
+
         binding.backbutton.setOnClickListener {
             findNavController().navigateUp()
+        }
+        binding.googelogin.setOnClickListener {
+            signInGoogle()
         }
     }
     //signup suspend fun
     private fun signInGoogle(){
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
-    }
-    fun Fragment.googleSignInClient( ):GoogleSignInClient{
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-        return GoogleSignIn.getClient(requireActivity(), gso)
     }
     //onActivityResult
     @Deprecated("Deprecated in Java")
@@ -100,28 +96,13 @@ class LoginFragment : Fragment() {
                 val account = task.getResult(ApiException::class.java)!!
                 //Toast.makeText(context,"firebaseAuthWithGoogle:" + account.id,Toast.LENGTH_LONG).show()
                 firebaseAuthWithGoogle(account.idToken!!,mAuth)
-                findNavController().navigate(SignUpFragmentDirections.actionSignUpFragmentToMainFragment())
+                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToMainFragment())
             }catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
-                Toast.makeText(context,"google signup failed",Toast.LENGTH_LONG).show()
+                Toast.makeText(context,"google signup failed${e.message}",Toast.LENGTH_LONG).show()
             }
         }
 
-    }
-    private fun firebaseAuthWithGoogle(idToken:String, mAuth: FirebaseAuth){
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-        mAuth.signInWithCredential(credential)
-            .addOnCompleteListener(requireActivity()) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Toast.makeText(context,"signInWithCredential:success", Toast.LENGTH_LONG).show()
-                    //updateUI(currentuser)
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Toast.makeText(context,"signInWithCredential:failure"+task.exception, Toast.LENGTH_LONG).show()
-                    //updateUI(null)
-                }
-            }
     }
 
 

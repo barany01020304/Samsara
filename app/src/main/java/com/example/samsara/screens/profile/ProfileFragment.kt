@@ -2,6 +2,8 @@ package com.example.samsara.screens.profile
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
@@ -25,9 +27,11 @@ import com.bumptech.glide.Glide
 import com.example.samsara.MainActivity
 import com.example.samsara.R
 import com.example.samsara.databinding.FragmentProfileBinding
+import com.example.samsara.datasource.local.UserDataSharedPref
 import com.example.samsara.screens.main.MainFragmentDirections
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
+import java.util.concurrent.Executors
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -50,26 +54,29 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding =DataBindingUtil.inflate(layoutInflater,R.layout.fragment_profile,container,false)
+        binding =
+            DataBindingUtil.inflate(layoutInflater, R.layout.fragment_profile, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val viewModelFactory = ProfileViewModelFactory(requireActivity().application)
         viewModel = ViewModelProvider(this, viewModelFactory)[ProfileViewModel::class.java]
-        pickImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                // Handle the image Uri here
-                result.data?.data?.let { imageUri ->
-                    viewModel.setImage(imageUri)
+        pickImageLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    // Handle the image Uri here
+                    result.data?.data?.let { imageUri ->
+                        viewModel.setImage(imageUri)
 
-                    //   binding.profileIV.load(imageUri)  // Load the image into an ImageView
+                        //   binding.profileIV.load(imageUri)  // Load the image into an ImageView
+                    }
                 }
             }
-        }
-        val activity=activity as MainActivity
+        val activity = activity as MainActivity
         binding.signOutBtn.setOnClickListener {
-            Toast.makeText(requireContext(),"sign out succesfully",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "sign out succesfully", Toast.LENGTH_SHORT).show()
             Firebase.auth.signOut()
             activity.navController.navigate(MainFragmentDirections.actionMainFragmentToOnBoardingFragment())
         }
@@ -80,17 +87,18 @@ class ProfileFragment : Fragment() {
         binding.fAQView.setOnClickListener {
             activity.navController.navigate(MainFragmentDirections.actionMainFragmentToFAQFragment())
         }
-        viewModel.profileImage.observe(viewLifecycleOwner){
+        viewModel.profileImage.observe(viewLifecycleOwner) {
             Glide.with(this)
                 .load(it).error(R.drawable.profile)
                 .circleCrop()  // Circular crop
-                .into(binding.profileIV).onLoadFailed(ResourcesCompat.getDrawable(resources, R.drawable.profile, null))
+                .into(binding.profileIV)
+                .onLoadFailed(ResourcesCompat.getDrawable(resources, R.drawable.profile, null))
         }
 
-        viewModel.textData.observe(viewLifecycleOwner){
-            binding.nameTV.text=it.first
-            binding.phoneET.text=it.second
-            binding.locationET.text=it.third
+        viewModel.textData.observe(viewLifecycleOwner) {
+            binding.nameTV.text = it.first
+            binding.phoneET.text = it.second
+            binding.locationET.text = it.third
         }
 
         binding.profileIV.setOnLongClickListener {
@@ -107,5 +115,7 @@ class ProfileFragment : Fragment() {
         // Launch the intent to open the gallery
         pickImageLauncher.launch(intent)
     }
+
+
 
 }

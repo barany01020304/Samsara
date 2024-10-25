@@ -31,7 +31,7 @@ import java.util.concurrent.Executors
 
 class SignUpFragment : Fragment() {
     lateinit var binding: FragmentSignUpBinding
-    private val userData=UserDataSharedPref(requireContext())
+    private lateinit var  userData:UserDataSharedPref
     private lateinit var mAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private var oneTapClient:SignInClient?=null
@@ -51,6 +51,7 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         mAuth = Firebase.auth
         mAuth = FirebaseAuth.getInstance()
+        userData=UserDataSharedPref(requireContext())
 //        val uid = currentuser!!.uid
         oneTapClient = Identity.getSignInClient(requireContext())
         //traditional signup
@@ -58,7 +59,6 @@ class SignUpFragment : Fragment() {
             binding.phoneedit.doOnTextChanged { text, start, before, count ->
                 userData.setPhoneNumber(text.toString())
             }
-
             val userEmail = binding.emailET.text.toString().trim()
             val userpass = binding.passwordET.text.toString().trim()
             val userpassconf = binding.passwordconfET.text.toString().trim()
