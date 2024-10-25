@@ -61,7 +61,6 @@ class MainActivity : AppCompatActivity() {
         networkCallback = object : ConnectivityManager.NetworkCallback() {
             override fun onLost(network: Network) {
                 super.onLost(network)
-                // Network is lost, check the current destination and navigate to NoInternetFragment
                 runOnUiThread {
                     if (navController.currentDestination?.id != R.id.noInternetFragment) {
                         navController.navigate(R.id.noInternetFragment)

@@ -58,22 +58,24 @@ class HomeFragment : Fragment() {
         }
         setLocationIV()
         setViewModel()
+        binding.refreshLayout.setOnRefreshListener {
+            binding.refreshLayout.isRefreshing=false
+            restartActivity()
+        }
 
-          setupRentBuyViewpager()
+        setupRentBuyViewpager()
 
         homeViewModel.cityNameLiveData.observe(viewLifecycleOwner) { cityName ->
-                binding.cityNameTv.text = cityName
-              //  Toast.makeText(requireContext(), "City: $cityName", Toast.LENGTH_LONG).show()
+            binding.cityNameTv.text = cityName
+            //  Toast.makeText(requireContext(), "City: $cityName", Toast.LENGTH_LONG).show()
         }
 
         // Observe the dialog trigger LiveData
         homeViewModel.showDialogLiveData.observe(viewLifecycleOwner) { (isGpsEnabled, isPermissionGranted) ->
-                showLocationAlertDialog(isGpsEnabled, isPermissionGranted)
+            showLocationAlertDialog(isGpsEnabled, isPermissionGranted)
         }
-        binding.refreshLayout.setOnRefreshListener {
-            restartActivity()
-            binding.refreshLayout.isRefreshing = false
-        }
+
+
     }
 
     private fun setViewModel() {
@@ -88,7 +90,7 @@ class HomeFragment : Fragment() {
 
     }
     private fun showLocationAlertDialog(isGpsEnabled: Boolean, isPermissionGranted: Boolean) {
-        val message = "Please enable GPS and grant location permissions to use <b>SAMSARA</b>."
+        val message = "After grant location services to use <b>SAMSARA</b> <br> <b>swipe down to refresh app.</b>"
         val alertDialogBuilder = AlertDialog.Builder(requireContext())
             .setTitle("Location Services Required")
             .setIcon(R.drawable.ic_launcher_foreground)
@@ -100,6 +102,7 @@ class HomeFragment : Fragment() {
                 startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
                 dialog.dismiss()
             }
+
         }
 
         if (!isPermissionGranted) {
@@ -107,11 +110,14 @@ class HomeFragment : Fragment() {
                 homeViewModel.requestLocationPermission(requireActivity())
                 dialog.dismiss()
             }
+
         }
         alertDialogBuilder.setNegativeButton("Exit App") { dialog, _ ->
             requireActivity().finish()
             dialog.dismiss()
         }
+
+
         alertDialogBuilder.create().show()
     }
 
@@ -123,7 +129,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRentBuyViewpager() {
+
         val adapter = RentBuyViewPagerAdapter(this)
+
         binding.rentOrBuyVp.adapter = adapter // Correct adapter assignment
         val tabTitle = arrayOf("I need to rent", "I need to buy")
 
@@ -137,7 +145,6 @@ class HomeFragment : Fragment() {
     }
     private fun setLocationIV() {
         binding.locationPinIV.setOnClickListener {
-            restartActivity()
             Glide.with(this.requireContext())
                 .asGif()
                 .load(R.drawable.location_gif_drawable)

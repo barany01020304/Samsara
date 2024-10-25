@@ -26,6 +26,8 @@ import com.example.samsara.MainActivity
 import com.example.samsara.R
 import com.example.samsara.databinding.FragmentProfileBinding
 import com.example.samsara.screens.main.MainFragmentDirections
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,7 +53,6 @@ class ProfileFragment : Fragment() {
         binding =DataBindingUtil.inflate(layoutInflater,R.layout.fragment_profile,container,false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val viewModelFactory = ProfileViewModelFactory(requireActivity().application)
@@ -67,6 +68,12 @@ class ProfileFragment : Fragment() {
             }
         }
         val activity=activity as MainActivity
+        binding.signOutBtn.setOnClickListener {
+            Toast.makeText(requireContext(),"sign out succesfully",Toast.LENGTH_SHORT).show()
+            Firebase.auth.signOut()
+            activity.navController.navigate(MainFragmentDirections.actionMainFragmentToOnBoardingFragment())
+        }
+
         binding.aboutUsView.setOnClickListener {
             activity.navController.navigate(MainFragmentDirections.actionMainFragmentToAboutUsFragment())
         }

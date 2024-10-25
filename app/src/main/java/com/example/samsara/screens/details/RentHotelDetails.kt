@@ -45,12 +45,8 @@ class RentHotelDetails : Fragment() {
     private var infantNum =0
     private val dateFormat = SimpleDateFormat("dd MMMM ", Locale.getDefault())  // Date format
 
-    private val adapter1: FacilitiesRecyclerView by lazy {
-        FacilitiesRecyclerView()
-    }
-    private val adapter2: FacilitiesRecyclerView by lazy {
-        FacilitiesRecyclerView()
-    }
+    private val adapter1: FacilitiesRecyclerView =FacilitiesRecyclerView()
+    private val adapter2: FacilitiesRecyclerView =FacilitiesRecyclerView()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -269,23 +265,7 @@ fun NavtoCheckOut(apartment:ApartmentDataModel){
             datePicker.minDate = dayAfterTomorrow.timeInMillis // Ensure at least the day after tomorrow is selectable
         }.show()
     }
-//    private fun getMonthString(month: Int): String {
-//        return when (month) {
-//            0 -> "Jan"
-//            1 -> "Feb"
-//            2 -> "Mar"
-//            3 -> "Apr"
-//            4 -> "May"
-//            5 -> "Jun"
-//            6 -> "Jul"
-//            7 -> "Aug"
-//            8 -> "Sep"
-//            9 -> "Oct"
-//            10 -> "Nov"
-//            11 -> "Dec"
-//            else -> "Invalid"
-//        }
-//    }
+
 
     private fun openLocationInMaps(latitude: Double, longitude: Double) {
         val uri = Uri.parse("geo:$latitude,$longitude?z=19")

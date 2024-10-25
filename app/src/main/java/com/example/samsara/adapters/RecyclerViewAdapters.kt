@@ -56,11 +56,5 @@ class RecyclerViewAdapters(private val activity: MainActivity,private val onItem
                 activity.navController.navigate(MainFragmentDirections.actionMainFragmentToBuyDetialsFragment(item.id))
             }
         }
-//        holder.itemView.setOnClickListener {
-//            when(fragment_position){
-//                0->Navigation.findNavController(it).navigate(R.id.action_viewPagerFragment_to_rentDetailsFragment2)
-//                else->Navigation.findNavController(it).navigate(R.id.action_viewPagerFragment_to_buyDetialsFragment)
-//            }
-//        }
     }
 }

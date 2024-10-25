@@ -10,9 +10,11 @@ import com.example.samsara.R
 import com.example.samsara.databinding.SavedRowBinding
 import com.example.samsara.datamodel.ApartmentDataModel
 import com.example.samsara.screens.main.MainFragmentDirections
+import com.example.samsara.screens.saved.SavedFragmentDirections
 
 class SavedRecycleAdapter(private val activity: MainActivity, private val onHoldClick:(List<String>) ->Unit) : RecyclerView.Adapter<SavedRecycleAdapter.SavedRecycleVH>() {
     inner class SavedRecycleVH(val binding: SavedRowBinding) : RecyclerView.ViewHolder(binding.root)
+    val currentDestination = activity.navController.currentDestination?.id
     var data: List<ApartmentDataModel> = emptyList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedRecycleVH {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -45,19 +47,14 @@ class SavedRecycleAdapter(private val activity: MainActivity, private val onHold
             true
         }
         holder.binding.root.setOnClickListener {
+
             if(item.type =="Rent"){
-                activity.navController.navigate(MainFragmentDirections.actionMainFragmentToRentDetailsFragment(item.id))
+                activity.navController.navigate(SavedFragmentDirections.actionSavedFragmentToRentDetailsFragment(item.id))
             }
-            else{
-                activity.navController.navigate(MainFragmentDirections.actionMainFragmentToBuyDetialsFragment(item.id))
+            else {
+                activity.navController.navigate(SavedFragmentDirections.actionSavedFragmentToRentDetailsFragment(item.id))
             }
-            true
         }
 
     }
-//    fun setDataSource(infoList: List<HomeData>) {
-//        this.listOfApartment.clear()
-//        this.listOfApartment.addAll(infoList)
-//        notifyDataSetChanged()
-//    }
 }

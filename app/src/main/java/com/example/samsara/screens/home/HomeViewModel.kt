@@ -42,7 +42,6 @@ class HomeViewModel(private var application: Application) : AndroidViewModel(app
     init {
         _cityNameLiveData.value = userData.getLocation()
     }
-
     // Method to check permissions and location settings
     fun checkLocationSettingsAndRequestLocation() {
         val context = application.applicationContext
