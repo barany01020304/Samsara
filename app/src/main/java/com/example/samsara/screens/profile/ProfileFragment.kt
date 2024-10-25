@@ -82,7 +82,7 @@ class ProfileFragment : Fragment() {
         }
         viewModel.profileImage.observe(viewLifecycleOwner){
             Glide.with(this)
-                .load(it)
+                .load(it).error(R.drawable.profile)
                 .circleCrop()  // Circular crop
                 .into(binding.profileIV).onLoadFailed(ResourcesCompat.getDrawable(resources, R.drawable.profile, null))
         }

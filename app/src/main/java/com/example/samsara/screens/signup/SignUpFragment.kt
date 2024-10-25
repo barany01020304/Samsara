@@ -4,16 +4,19 @@ package com.example.samsara.screens.signup
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.example.samsara.R
 import com.example.samsara.databinding.FragmentSignUpBinding
+import com.example.samsara.datasource.local.UserDataSharedPref
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -28,6 +31,7 @@ import java.util.concurrent.Executors
 
 class SignUpFragment : Fragment() {
     lateinit var binding: FragmentSignUpBinding
+    private val userData=UserDataSharedPref(requireContext())
     private lateinit var mAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private var oneTapClient:SignInClient?=null
@@ -51,6 +55,10 @@ class SignUpFragment : Fragment() {
         oneTapClient = Identity.getSignInClient(requireContext())
         //traditional signup
         binding.signupBtn.setOnClickListener {
+            binding.phoneedit.doOnTextChanged { text, start, before, count ->
+                userData.setPhoneNumber(text.toString())
+            }
+
             val userEmail = binding.emailET.text.toString().trim()
             val userpass = binding.passwordET.text.toString().trim()
             val userpassconf = binding.passwordconfET.text.toString().trim()
@@ -146,9 +154,12 @@ class SignUpFragment : Fragment() {
     private fun showuser(){
         currentuser?.let {
             val name=it.displayName
+            userData.setUserName(name?:"Unknown")
             val email=it.email
             val photoUrl=it.photoUrl
-            val phoneNumber=it.phoneNumber
+            val phoneNumber:String=it.phoneNumber?:"0100000000000"
+            userData.setPhoneNumber(phoneNumber)
+            userData.setPhoneNumber(name?:"Unknown")
             //val emailVerified=it.isEmailVerified
             var image:Bitmap?=null
             val imageURL=photoUrl.toString()

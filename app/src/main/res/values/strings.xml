@@ -49,5 +49,5 @@
     <string name="no_internet_connection">No Internet Connection</string>
     <string name="show_saved">Show Saved</string>
     <string name="search">Search</string>
-    <string name="sign_out">Sign out</string>
+    <string name="sign_out">Log out</string>
 </resources>

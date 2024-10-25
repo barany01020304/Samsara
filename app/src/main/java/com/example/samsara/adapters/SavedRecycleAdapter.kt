@@ -1,7 +1,11 @@
 package com.example.samsara.adapters
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -47,14 +51,25 @@ class SavedRecycleAdapter(private val activity: MainActivity, private val onHold
             true
         }
         holder.binding.root.setOnClickListener {
+            if (isNetworkAvailable(activity)){
+                if(item.type =="Rent"){
+                    activity.navController.navigate(SavedFragmentDirections.actionSavedFragmentToRentDetailsFragment(item.id))
+                }
+                else {
+                    activity.navController.navigate(SavedFragmentDirections.actionSavedFragmentToRentDetailsFragment(item.id))
+                }
+            }else
+            {
+                Toast.makeText(activity,"no internet connection you can show only saved list",Toast.LENGTH_SHORT).show()
+            }
 
-            if(item.type =="Rent"){
-                activity.navController.navigate(SavedFragmentDirections.actionSavedFragmentToRentDetailsFragment(item.id))
-            }
-            else {
-                activity.navController.navigate(SavedFragmentDirections.actionSavedFragmentToRentDetailsFragment(item.id))
-            }
         }
 
+    }
+    fun isNetworkAvailable(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return false
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+        return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 }
